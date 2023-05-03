@@ -28,8 +28,8 @@ function SendButtonClick() {
   // Create a new message element with the message content
   const messageElement = createMessageElement(messageContent);
 
-  // Add the new message element to the conversation
-  conversation.appendChild(messageElement);
+  // Insert the new message element at the beginning of the conversation div
+  conversation.insertBefore(messageElement, conversation.firstChild);
 
   // Reset the input field
   inputField.value = "";
