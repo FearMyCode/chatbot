@@ -1,7 +1,29 @@
+/* Website header */
+.website-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.website-header-container h1 {
+  margin: 0;
+}
+
+.settings-button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 /* Chat app container */
 .chat-app {
   display: flex;
-  height: 920px;
+  height: 860px;
 }
 
 /* Left panel for chat history */
