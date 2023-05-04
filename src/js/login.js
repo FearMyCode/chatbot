@@ -11,9 +11,8 @@ function attemptToLogin() {
     // Check if the username and password are correct.
     if (username == "admin" && password == "admin") {
 
-        // If correct, hide the login panel.
-        var signInElement = document.getElementById("sign-in");
-        signInElement.style.visibility = "hidden";
+        // If correct login, load the real webpage.
+        document.location.href = "chatbot.html";
 
     } else {
 

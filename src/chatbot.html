@@ -33,31 +33,5 @@
         </div>
       </div>
     </div>
-
-    <!-- 
-      The sign-in panel is displayed by default.
-      After a user attempts to submit their login form, it will be checked.
-      If correct this whole div will be hidden and the chat-app will be displayed normally.
-    -->
-    <div id="sign-in">
-      <div class="sign-in-panel">
-        <form onsubmit="attemptToLogin(); return false;">
-          <div class="sign-in-header">
-            <h1>Sign In</h1>
-          </div>
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" placeholder="Enter your username" id="username" />
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" placeholder="Enter your password"  id="password"/>
-          </div>
-          <div class="form-submit">
-            <button type="submit">Sign In</button>
-          </div>
-        </form>
-      </div>
-    </div>
   </body>
 </html>
