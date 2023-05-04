@@ -33,7 +33,16 @@ function SendButtonClick() {
 
   // Reset the input field
   inputField.value = "";
+
+  inputField.focus();
 }
 
 // Add a click event listener to the send button
 sendButton.addEventListener("click", SendButtonClick);
+
+// Add event listeners to "Enter" key press
+inputField.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    SendButtonClick();
+  }
+});
