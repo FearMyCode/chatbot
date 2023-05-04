@@ -88,3 +88,39 @@
   font-size: 16px;
   cursor: pointer;
 }
+
+.form-submit{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#sign-in {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.sign-in-panel {
+  text-align: center;
+  margin: 0;
+  padding: 0px 20px 20px 20px;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  background-color: rgb(255, 255, 255);
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+}
+
+.sign-in-panel .form-group{
+  padding: 0px 0px 10px 0px;
+}
