@@ -5,6 +5,9 @@
     <title>Chatbot</title>
     <link rel="stylesheet" href="styles/style.css" />
     <script src="scripts.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="website-header-container">
@@ -14,7 +17,7 @@
 
     <div class="chat-app">
       <div class="left-panel">
-        <div class="chat-history">
+        <div class="chat-history-title">
           <h3>Chat History</h3>
         </div>
       </div>
@@ -26,6 +29,7 @@
           </div>
         </div>
         <div class="chat-panel">
+          <div class="conversation"></div>
           <div class="input-container">
             <input type="text" placeholder="Type your message here..." />
             <button>Send</button>
@@ -33,5 +37,7 @@
         </div>
       </div>
     </div>
+
+    <script src="js/conversation.js"></script>
   </body>
 </html>
