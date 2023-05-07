@@ -35,10 +35,11 @@ body{
   width: 15%;
   background-color: #f2f2f2;
   padding: 10px;
+  overflow-y: scroll;
 }
 
 .chat-history-title {
-  margin-bottom: 100px;
+  margin-bottom: 10px;
 }
 
 /* Main panel */
@@ -99,4 +100,9 @@ body{
   align-items: flex-start;
   height: 100%;
   overflow-y: scroll;
+}
+
+.chat-history-item{
+  width:auto;
+  height:auto;
 }
