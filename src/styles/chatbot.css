@@ -1,6 +1,6 @@
 /* Website header */
-body{
-  font-family: 'Roboto', sans-serif;
+body {
+  font-family: "Roboto", sans-serif;
 }
 
 .website-header-container {
@@ -102,7 +102,7 @@ body{
   overflow-y: scroll;
 }
 
-.chat-history-item{
-  width:auto;
-  height:auto;
+.chat-history-item {
+  width: auto;
+  height: auto;
 }
