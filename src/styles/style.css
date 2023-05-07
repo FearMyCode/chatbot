@@ -1,6 +1,6 @@
 /* Website header */
-body{
-  font-family: 'Roboto', sans-serif;
+body {
+  font-family: "Roboto", sans-serif;
 }
 
 .website-header-container {
@@ -107,7 +107,7 @@ body{
   transform: translate(-50%, -50%);
 }
 
-.login-page{
+.login-page {
   align-items: center;
   display: flex;
   justify-content: center;
@@ -115,7 +115,7 @@ body{
   flex-wrap: wrap;
 }
 
-.login-description{
+.login-description {
   margin: 0px 4rem 0px 4rem;
   background-color: aqua;
   padding: 10px;
@@ -127,8 +127,8 @@ body{
   padding: 10px;
 }
 
-.form-group{
-  padding:0px 0px 10px 0px;
+.form-group {
+  padding: 0px 0px 10px 0px;
 }
 
 .conversation {
