@@ -93,7 +93,6 @@ body{
   cursor: pointer;
 }
 
-<<<<<<<< HEAD:src/styles/style.css
 .container {
   height: 100%;
   position: relative;
@@ -130,12 +129,12 @@ body{
 
 .form-group{
   padding:0px 0px 10px 0px;
-========
+}
+
 .conversation {
   display: flex;
   flex-direction: column-reverse;
   align-items: flex-start;
   height: 100%;
   overflow-y: scroll;
->>>>>>>> origin/main:src/styles/chatbot.css
 }
