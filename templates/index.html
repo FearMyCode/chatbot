@@ -3,9 +3,12 @@
   <head>
     <meta charset="UTF-8">
     <title>Chatbot</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <script src="js/login.js"></script>
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
   </head>
   <body>
     <div class="container"></div>

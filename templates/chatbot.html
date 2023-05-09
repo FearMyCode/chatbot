@@ -7,8 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
       rel="stylesheet"
+      href="{{ url_for('static', filename='css/chatbot.css') }}"
     />
   </head>
   <body>
@@ -28,43 +28,43 @@
         <div class="chat-history">
           <div class="chat-history-item">
             <h4>Chat Title</h4>
-            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
           <div class="chat-history-item">
             <h4>Chat Title</h4>
-            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
           <div class="chat-history-item">
             <h4>Chat Title</h4>
-            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
           <div class="chat-history-item">
             <h4>Chat Title</h4>
-            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
           <div class="chat-history-item">
             <h4>Chat Title</h4>
-            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
           <div class="chat-history-item">
             <h4>Chat Title</h4>
-            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
           <div class="chat-history-item">
             <h4>Chat Title</h4>
-            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
           <div class="chat-history-item">
             <h4>Chat Title</h4>
-            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
           <div class="chat-history-item">
             <h4>Chat Title</h4>
-            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
           <div class="chat-history-item">
             <h4>Chat Title</h4>
-            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
         </div>
       </div>
@@ -76,16 +76,15 @@
           </div>
         </div>
         <div class="chat-panel">
-          <div class="conversation">
-          </div>
+          <div class="conversation"></div>
           <div class="input-container">
             <input type="text" placeholder="Type your message here..." />
             <button>Send</button>
           </div>
         </div>
       </div>
-    </div> 
+    </div>
 
-    <script src="js/conversation.js"></script>
+    <script src="{{ url_for('static', filename='js/conversation.js') }}"></script>
   </body>
 </html>
