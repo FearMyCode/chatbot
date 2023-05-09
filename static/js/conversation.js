@@ -1,11 +1,11 @@
 "use strict";
 
 // Get references to the input field and send button
-const inputField = $(".input-container input");
-const sendButton = $(".input-container button");
+const inputField = $(".user-input input");
+const sendButton = $(".user-input button");
 
-// Get reference to the conversation div
-const conversation = $(".conversation");
+// Get reference to the chatHistory div
+const chatHistory = $(".chat-history");
 
 // Function to create a new message element
 function createMessageElement(content) {
@@ -26,8 +26,8 @@ function sendButtonClick() {
   // Create a new message element with the message content
   const messageElement = createMessageElement(messageContent);
 
-  // Insert the new message element at the beginning of the conversation div
-  conversation.prepend(messageElement);
+  // Insert the new message element at the beginning of the chatHistory div
+  chatHistory.prepend(messageElement);
 
   // Reset the input field
   inputField.val("");
@@ -42,11 +42,11 @@ function sendButtonClick() {
     success: function (response) {
       // Handle the server's response
       const replyElement = createMessageElement(response);
-      conversation.prepend(replyElement);
+      chatHistory.prepend(replyElement);
     },
     error: function (xhr, status, error) {
       console.log("An error occurred:", error);
-    }
+    },
   });
 }
 
