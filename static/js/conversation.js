@@ -47,7 +47,7 @@ $(document).ready(function () {
           chatHistory.empty();
           response.messages.forEach(function (message) {
             const chatMessage = $("<div>").text(message);
-            chatHistory.append(chatMessage);
+            chatHistory.prepend(chatMessage);
           });
         }
       },
