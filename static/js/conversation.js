@@ -83,4 +83,26 @@ $(document).ready(function () {
       sendButtonClick();
     }
   });
+
+  // Function to get the current conversation ID from the URL
+  function getCurrentConversationId() {
+    const currentURL = window.location.href;
+    const conversationId = currentURL.split("/").pop();
+    return conversationId;
+  }
+
+  // Function to update the conversation on the server
+  function updateConversation(message, conversationId) {
+    $.ajax({
+      url: "/chat/update",
+      method: "POST",
+      data: { message: message, conversation_id: conversationId },
+      success: function (response) {
+        console.log("Conversation updated successfully.");
+      },
+      error: function (error) {
+        console.log("Error updating conversation:", error);
+      },
+    });
+  }
 });

@@ -54,5 +54,16 @@ def get_conversation_by_id(conversation_id):
     return jsonify({'success': False, 'message': 'Conversation not found'})
 
 
+@app.route('/chat/update', methods=['POST'])
+def update_conversation():
+    message = request.form.get('message')
+    conversation_id = int(request.form.get('conversation_id'))
+    for conversation in conversations:
+        if conversation['id'] == conversation_id:
+            conversation['messages'].append(message)
+            return jsonify({'success': True})
+    return jsonify({'success': False, 'message': 'Conversation not found'})
+
+
 if __name__ == '__main__':
     app.run(debug=True)
