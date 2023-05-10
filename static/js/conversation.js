@@ -72,43 +72,23 @@ $(document).ready(function () {
 
   // Function to handle the send button click event
   function sendButtonClick() {
-    // Get the message content from the input field
-    const messageContent = inputField.val();
+    const inputField = $("#message-input");
+    const message = inputField.val().trim();
+    if (message !== "") {
+      const chatHistory = $("#chat-history");
+      const chatMessage = $("<div>").text(message);
+      chatHistory.prepend(chatMessage);
+      inputField.val("");
 
-    // If the input field is empty, do nothing
-    if (!messageContent) {
-      return;
+      // Update the conversation on the server
+      const conversationId = getCurrentConversationId();
+      updateConversation(message, conversationId);
     }
-
-    // Create a new message element with the message content
-    const messageElement = createMessageElement(messageContent);
-
-    // Insert the new message element at the beginning of the chatHistory div
-    chatHistory.prepend(messageElement);
-
-    // Reset the input field
-    inputField.val("");
-
     inputField.focus();
-
-    // Send the message to the server using AJAX
-    $.ajax({
-      url: "/api/send-message",
-      method: "POST",
-      data: { message: messageContent },
-      success: function (response) {
-        // Handle the server's response
-        const replyElement = createMessageElement(response);
-        chatHistory.prepend(replyElement);
-      },
-      error: function (xhr, status, error) {
-        console.log("An error occurred:", error);
-      },
-    });
   }
 
-  // Add a click event listener to the send button
-  sendButton.on("click", sendButtonClick);
+  // Click event listener for the send button
+  $("#send-button").on("click", sendButtonClick);
 
   // Add event listeners to "Enter" key press
   inputField.on("keydown", function (event) {
