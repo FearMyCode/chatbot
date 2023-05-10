@@ -57,19 +57,6 @@ $(document).ready(function () {
     });
   }
 
-  // Get references to the input field and send button
-  const inputField = $(".user-input input");
-  const sendButton = $(".user-input button");
-
-  // Get reference to the chatHistory div
-  const chatHistory = $(".chat-history");
-
-  // Function to create a new message element
-  function createMessageElement(content) {
-    const messageElement = $("<div>").addClass("message").text(content);
-    return messageElement;
-  }
-
   // Function to handle the send button click event
   function sendButtonClick() {
     const inputField = $("#message-input");
@@ -90,8 +77,8 @@ $(document).ready(function () {
   // Click event listener for the send button
   $("#send-button").on("click", sendButtonClick);
 
-  // Add event listeners to "Enter" key press
-  inputField.on("keydown", function (event) {
+  // Event listener for "Enter" key press on the input field
+  $("#message-input").on("keyup", function (event) {
     if (event.key === "Enter") {
       sendButtonClick();
     }
