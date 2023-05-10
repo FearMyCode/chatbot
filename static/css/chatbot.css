@@ -1,6 +1,6 @@
 /* Website header */
-body{
-  font-family: 'Roboto', sans-serif;
+body {
+  font-family: "Roboto", sans-serif;
 }
 
 .website-header-container {
@@ -25,32 +25,41 @@ body{
 }
 
 /* Chat app container */
-.chat-app {
+.chat-container {
   display: flex;
   height: 860px;
 }
 
 /* Left panel for chat history */
-.left-panel {
+.conversation-panel {
   width: 15%;
   background-color: #f2f2f2;
   padding: 10px;
   overflow-y: scroll;
 }
 
-.chat-history-title {
-  margin-bottom: 10px;
+.conversation-list {
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.list-group-item {
+  cursor: pointer;
+}
+
+.list-group-item.active {
+  background-color: #dee2e6;
 }
 
 /* Main panel */
-.main-panel {
+.main-content {
   width: 85%;
   display: flex;
   flex-direction: column;
 }
 
 /* Header */
-.chat-header {
+.chat-title-bar {
   display: flex;
   background-color: #333;
   color: #fff;
@@ -58,7 +67,7 @@ body{
 }
 
 /* Chat panel */
-.chat-panel {
+.chat-content {
   flex: 1;
   padding: 60px;
   overflow-y: scroll;
@@ -66,7 +75,7 @@ body{
   position: relative;
 }
 
-.input-container {
+.user-input {
   display: flex;
   padding: 0 60px 0 60px;
   margin-top: 20px;
@@ -76,7 +85,7 @@ body{
   right: 0;
 }
 
-.input-container input {
+.user-input input {
   flex: 1;
   padding: 10px;
   border: none;
@@ -84,7 +93,7 @@ body{
   font-size: 16px;
 }
 
-.input-container button {
+.user-input button {
   background-color: #333;
   color: #fff;
   border: none;
@@ -94,7 +103,7 @@ body{
   cursor: pointer;
 }
 
-.conversation {
+.chat-history {
   display: flex;
   flex-direction: column-reverse;
   align-items: flex-start;
@@ -102,7 +111,7 @@ body{
   overflow-y: scroll;
 }
 
-.chat-history-item{
-  width:auto;
-  height:auto;
+.list-group-item {
+  width: auto;
+  height: auto;
 }
