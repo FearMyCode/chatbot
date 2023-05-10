@@ -29,6 +29,12 @@ $(document).ready(function () {
     },
   });
 
+  // Function to update the URL with the conversation ID
+  function updateURL(conversationId) {
+    const newURL = "/chat/" + conversationId;
+    window.history.pushState(null, "", newURL);
+  }
+
   // Function to fetch and display the conversation based on the title
   function fetchConversation(title) {
     $.ajax({
