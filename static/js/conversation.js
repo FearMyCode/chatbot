@@ -6,9 +6,9 @@ $(document).ready(function () {
     method: "GET",
     success: function (response) {
       if (response.success) {
-        var conversationList = $("#conversation-list");
+        const conversationList = $("#conversation-list");
         response.conversations.forEach(function (title, index) {
-          var listItem = $("<li>")
+          const listItem = $("<li>")
             .addClass("list-group-item")
             .text(title)
             .attr("data-conversation-id", index + 1);
@@ -17,8 +17,8 @@ $(document).ready(function () {
 
         // Click event listener for conversation titles
         $(".list-group-item").on("click", function () {
-          var title = $(this).text();
-          var conversationId = $(this).data("conversation-id");
+          const title = $(this).text();
+          const conversationId = $(this).data("conversation-id");
           updateURL(conversationId);
           fetchConversation(title);
         });
