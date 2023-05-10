@@ -38,8 +38,17 @@ body {
   overflow-y: scroll;
 }
 
-.conversation-title {
-  margin-bottom: 10px;
+.conversation-list {
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.list-group-item {
+  cursor: pointer;
+}
+
+.list-group-item.active {
+  background-color: #dee2e6;
 }
 
 /* Main panel */
