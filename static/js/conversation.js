@@ -120,6 +120,12 @@ $(document).ready(function () {
     }
   });
 
+  // Click event listener for the "New Chat" button
+  $("#new-chat-button").on("click", function () {
+    // Redirect to the default page
+    window.location.href = "/";
+  });
+
   // Function to get the current conversation ID from the URL
   function getCurrentConversationId() {
     const currentURL = window.location.href;
