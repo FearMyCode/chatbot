@@ -17,7 +17,6 @@ if(token){
             if (res.status==200) {
                 let data=JSON.parse(res.data)
                 sessionStorage.setItem('token', token)
-                sessionStorage.setItem('cur_con_id',data.con_id) // Id of current conversation
                 sessionStorage.setItem('user_id',data.user.id)
                 sessionStorage.setItem('user_name',data.user.name)
                 window.location.href=data.url
@@ -48,7 +47,6 @@ log_btn.addEventListener('click',e=>{
                 let data=JSON.parse(res.data)
                 //take token into session storage, if "remember me", store in cookie or local storage
                 sessionStorage.setItem('token',data.token)
-                sessionStorage.setItem('cur_con_id',data.con_id) // Id of current conversation
                 sessionStorage.setItem('user_id',data.user.id)
                 sessionStorage.setItem('user_name',data.user.name)
                 if(RM) {

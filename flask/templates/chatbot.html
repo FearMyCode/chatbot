@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chatbot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/chatbot.css') }}"
+    />
+  </head>
+  <body>
+    <div class="website-header-container">
+      <h1>Website Title</h1>
+      <button class="settings-button">Settings</button>
+    </div>
+
+    <div class="chat-container">
+      <div class="conversation-panel">
+        <div class="conversation-list">
+          <button id="new-chat-button">New Chat</button>
+          <div class="search-bar">
+            <form>
+            <h3>Chat Search Bar</h3>
+              <input class="searchBar" type="text" placeholder="Search for content...">
+              <input class="searchSubmit" type="submit">
+            </form>
+          </div>
+          <h3>Conversations</h3>
+          <ul id="conversation-list" class="list-group"></ul>
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="chat-title-bar">
+          <div class="chat-title">
+            <h2>Chat Title</h2>
+            <p>Created on May 2, 2023</p>
+          </div>
+        </div>
+        <div class="chat-content">
+          <div id="chat-history" class="chat-history"></div>
+          <div class="user-input">
+            <input
+              type="text"
+              id="message-input"
+              placeholder="Type your message here..."
+            />
+            <button id="send-button">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/conversation.js') }}"></script>
+  </body>
+</html>

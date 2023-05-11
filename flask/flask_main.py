@@ -8,8 +8,9 @@ import openai
 import hashlib
 import json
 from app import *
-OPENAI_API_KEY = "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"
-openai.organization = "org-cf6TK4aeo1LotntOuVgjbHaR"
+from sqlalchemy import or_, and_, not_
+OPENAI_API_KEY = ""
+openai.organization = ""
 openai.api_key = OPENAI_API_KEY
 
 md5 = hashlib.md5()  # Create md5 encryption object
@@ -27,10 +28,10 @@ def toRegister():
     return render_template('register.html')
 
 # navigate to main page
-@app.route('/toIndex/<token>',methods=['GET','POST'])
-def toIndex(token):
+@app.route('/toChatBot/<token>',methods=['GET','POST'])
+def toChatBot(token):
     if token_validate(token):
-        return render_template('index.html')
+        return render_template('chatbot.html')
 
 
 @app.route('/returnMessage/<token>',methods=['GET','POST'])
@@ -49,7 +50,61 @@ def returnMessage(token):
         db.session.add(reply)
         db.session.commit()
         return message
+    else:
+        return "Token Invalid!"
         # return html.json()["content"]
+
+@app.route('/newConversation/<token>',methods=['GET','POST'])
+# auxiliary function, to start a new conversation
+def newConversation(token):
+    if token_validate(token):
+        new_conversation = Conversation(title=request.values.get("title"),user_id=request.values.get("user_id"))
+        db.session.add(new_conversation)
+        db.session.flush()
+        db.session.commit()
+        data={
+            "id":new_conversation.id,
+            "startTime":new_conversation.startTime.strftime('%Y-%m-%d %H:%M:%S')
+        }
+        return {"status":200,"data":json.dumps(data)}
+    else:
+        print("Token invalid")
+        return {"status":404}
+
+@app.route('/refreshConversations/<token>',methods=['GET','POST'])
+# auxiliary function, to start a new conversation
+def refreshConversations(token):
+    if token_validate(token):
+        user_id = request.values.get("user_id")
+        keyword = request.values.get("keyword")
+        if keyword:
+            conversations = Conversation.query.filter(and_(Conversation.user_id==user_id,Conversation.title.contains(keyword))).all()
+        else:
+            conversations=Conversation.query.filter_by(user_id=user_id).all()
+        data=[]
+        for con in conversations:
+            data.append({
+                'id':con.id,
+                'title': con.title,
+                'startTime':con.startTime.strftime('%Y-%m-%d %H:%M:%S')
+            })
+        return {"status":200,"data":json.dumps(data)}
+
+@app.route('/fetchConversation/<token>',methods=['GET','POST'])
+# auxiliary function, to start a new conversation
+def fetchConversation(token):
+    if token_validate(token):
+        con_id = request.values.get("con_id")
+        statements=Statement.query.filter_by(conversation_id=con_id).all()
+        data=[]
+        for item in statements:
+            data.append({
+                'id':item.id,
+                'title': item.title,
+                'content':item.content,
+                'timeStamp':item.timeStamp.strftime('%Y-%m-%d %H:%M:%S')
+            })
+        return {"status":200,"data":json.dumps(data)}
 
 # Automatically generate a new conversation when log in
 @app.route('/login',methods=['GET','POST'])
@@ -66,15 +121,13 @@ def logIn():
         new_token = Token(content=token,user_id=user.id)
         db.session.add(new_token)
         db.session.commit()
-        conversation_id=create_conversation("Default Title",request.values.get("user_id"))
         data={
-            "url":url_for("toIndex",token=token),
+            "url":url_for("toChatBot",token=token),
             "token":token,
             "user":{
                 "name":user.name,
                 "id":user.id
-            },
-            "con_id":conversation_id
+            }
         }
         return {"status":200,"data":json.dumps(data)}
     else:
@@ -85,14 +138,12 @@ def autoLogIn():
     token = request.values.get("token")
     if token_validate(token):
         TOKEN = Token.query.filter_by(content=token).first()
-        conversation_id = create_conversation("Default Title", request.values.get("user_id"))
         data={
-            "url":url_for("toIndex",token=token),
+            "url":url_for("toChatBot",token=token),
             "user":{
                 "id":TOKEN.User.id,
                 "name":TOKEN.User.name
-            },
-            "con_id": conversation_id
+            }
         }
         return {"status":200,"data":json.dumps(data)}
     else:
@@ -125,12 +176,8 @@ def token_validate(token_md5):
         db.session.commit()
         return True
 
-# auxiliary function, to start a new conversation
-def create_conversation(title,user_id):
-    new_conversation = Conversation(title=title,user_id=user_id)
-    db.session.add(new_conversation)
-    db.session.commit()
-    return new_conversation.id
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
