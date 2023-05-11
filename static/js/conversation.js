@@ -1,33 +1,13 @@
 "use strict";
 $(document).ready(function () {
-  // Fetch conversation titles and populate the left panel
-  $.ajax({
-    url: "/chat/conversations",
-    method: "GET",
-    success: function (response) {
-      if (response.success) {
-        const conversationList = $("#conversation-list");
-        response.conversations.forEach(function (title, index) {
-          const listItem = $("<li>")
-            .addClass("list-group-item")
-            .text(title)
-            .attr("data-conversation-id", index + 1);
-          conversationList.append(listItem);
-        });
-
-        // Click event listener for conversation titles
-        $(".list-group-item").on("click", function () {
-          const title = $(this).text();
-          const conversationId = $(this).data("conversation-id");
-          updateURL(conversationId);
-          fetchConversation(title);
-        });
-      }
-    },
-    error: function (error) {
-      console.log("Error fetching conversation titles:", error);
-    },
-  });
+  // Function to register click event listeners for conversation titles
+  function registerClickEventListeners() {
+    $(".list-group-item").on("click", function () {
+      const conversationId = $(this).data("conversation-id");
+      updateURL(conversationId);
+      fetchConversation(conversationId);
+    });
+  }
 
   // Function to update the URL with the conversation ID
   function updateURL(conversationId) {
@@ -35,12 +15,11 @@ $(document).ready(function () {
     window.history.pushState(null, "", newURL);
   }
 
-  // Function to fetch and display the conversation based on the title
-  function fetchConversation(title) {
+  // Function to fetch and display the conversation based on the ID
+  function fetchConversation(conversationId) {
     $.ajax({
-      url: "/chat/conversation",
-      method: "POST",
-      data: { title: title },
+      url: "/chat/" + conversationId,
+      method: "GET",
       success: function (response) {
         if (response.success) {
           const chatHistory = $("#chat-history");
@@ -57,6 +36,30 @@ $(document).ready(function () {
     });
   }
 
+  // Fetch conversation titles and populate the left panel
+  $.ajax({
+    url: "/chat/conversations",
+    method: "GET",
+    success: function (response) {
+      if (response.success) {
+        const conversationList = $("#conversation-list");
+        response.conversations.forEach(function (conversation) {
+          const listItem = $("<li>")
+            .addClass("list-group-item")
+            .text(conversation.title)
+            .attr("data-conversation-id", conversation.id);
+          conversationList.append(listItem);
+        });
+
+        // Call the function to register click event listeners
+        registerClickEventListeners();
+      }
+    },
+    error: function (error) {
+      console.log("Error fetching conversation titles:", error);
+    },
+  });
+
   // Function to handle the send button click event
   function sendButtonClick() {
     const inputField = $("#message-input");
@@ -68,15 +71,48 @@ $(document).ready(function () {
       inputField.val("");
 
       // Update the conversation on the server
-      const conversationId = getCurrentConversationId();
+      let conversationId = getCurrentConversationId();
+
+      if (window.location.pathname === "/") {
+        // Create a new conversation
+        const conversationList = $("#conversation-list");
+        const newConversationId = conversationList.children().length + 1;
+        const newConversationTitle = "Conversation " + newConversationId;
+        const listItem = $("<li>")
+          .addClass("list-group-item")
+          .text(newConversationTitle)
+          .attr("data-conversation-id", newConversationId);
+        conversationList.append(listItem);
+
+        // Update the URL for the new conversation
+        updateURL(newConversationId);
+
+        // Update the conversation ID
+        conversationId = newConversationId;
+
+        // Create a new conversation object
+        const newConversation = {
+          id: newConversationId,
+          title: newConversationTitle,
+          messages: [message],
+        };
+        conversations.push(newConversation);
+
+        // Call the function to register click event listeners
+        registerClickEventListeners();
+      }
+
+      // Clear input field and focus
+      inputField.val("");
+      inputField.focus();
+
+      // Update the conversation on the server
       updateConversation(message, conversationId);
     }
-    inputField.focus();
   }
 
   // Click event listener for the send button
   $("#send-button").on("click", sendButtonClick);
-
   // Event listener for "Enter" key press on the input field
   $("#message-input").on("keyup", function (event) {
     if (event.key === "Enter") {

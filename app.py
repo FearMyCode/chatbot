@@ -33,17 +33,9 @@ def index():
 
 @app.route('/chat/conversations', methods=['GET'])
 def get_conversation_titles():
-    titles = [conversation['title'] for conversation in conversations]
+    titles = [{'id': conversation['id'], 'title': conversation['title']}
+              for conversation in conversations]
     return jsonify({'success': True, 'conversations': titles})
-
-
-@app.route('/chat/conversation', methods=['POST'])
-def get_conversation_by_title():
-    title = request.form.get('title')
-    for conversation in conversations:
-        if conversation['title'] == title:
-            return jsonify({'success': True, 'messages': conversation['messages']})
-    return jsonify({'success': False, 'message': 'Conversation not found'})
 
 
 @app.route('/chat/<int:conversation_id>', methods=['GET'])
