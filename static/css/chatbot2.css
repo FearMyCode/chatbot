@@ -229,7 +229,7 @@ body {
 .main-content .chatbot-input .chatbot-input-text {
   background: var(--sidebar-color);
   position: absolute;
-  bottom: 50px;
+  bottom: 25px;
   left: 462.5px;
   width: 600px;
   height: 40px;
@@ -244,7 +244,7 @@ body {
 
 .main-content .chatbot-input-send {
   position: absolute;
-  bottom: 50px;
+  bottom: 25px;
   left: 1025px;
   width: 35px;
   height: 35px;
