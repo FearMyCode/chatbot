@@ -7,28 +7,56 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/chatbot.css') }}"
+      href="{{ url_for('static', filename='css/chatbotfinal.css') }}"
     />
   </head>
   <body>
     <div class="website-header-container">
-      <h1>Website Title</h1>
-      <button class="settings-button">Settings</button>
+      <img
+        src="../static/assets/robot.png"
+        alt="robot"
+        width="70px"
+        height="70px"
+      />
+      <h1>Chatbot_3403</h1>
+      <a href="#" class="settings-button">
+        <img
+          src="../static/assets/setting.png"
+          alt="settings"
+          width="35px"
+          height="35px"
+        />
+      </a>
     </div>
 
+    <!-- TODO: Try using NAV and MAIN and HEADER -->
     <div class="chat-container">
-      <div class="conversation-panel">
-        <div class="conversation-list">
-          <button id="new-chat-button">New Chat</button>
+      <div class="conversation-container">
+        <div class="conversation-panel">
+          <button id="new-chat-button">
+            <img
+              src="../static/assets/add.png"
+              alt="new chat"
+              width="30px"
+              height="30px"
+            />
+            <span> New Chat</span>
+          </button>
           <div class="search-bar">
             <form>
-            <h3>Chat Search Bar</h3>
-              <input class="searchBar" type="text" placeholder="Search for content...">
-              <input class="searchSubmit" type="submit">
+              <h3 class="header-text">Chat Search Bar</h3>
+              <input
+                class="searchBar"
+                type="text"
+                placeholder="Search for content..."
+              />
+              <input class="searchSubmit" type="submit" />
             </form>
           </div>
-          <h3>Conversations</h3>
-          <ul id="conversation-list" class="list-group"></ul>
+          <div class="conversation-list">
+            <h3>Conversations</h3>
+            <ul id="conversation-list" class="list-group"></ul>
+          </div>
         </div>
       </div>
       <div class="main-content">
