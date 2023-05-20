@@ -115,7 +115,7 @@ body {
 /* ======== SIDEBAR ======== */
 /* TODO: I want to add a column flexbox for sidebar*/
 
-.chat-container .conversation-container {
+.chat-container {
   position: fixed;
   top: 100px;
   left: 0;
@@ -124,7 +124,7 @@ body {
   z-index: 2;
 }
 
-.chat-container .conversation-container .conversation-panel {
+.chat-container .conversation-panel {
   position: fixed;
   top: 100px;
   left: 0;
@@ -134,7 +134,7 @@ body {
   overflow-y: auto;
 }
 
-.chat-container .conversation-container .conversation-panel #new-chat-button {
+.chat-container .conversation-panel #new-chat-button {
   box-sizing: border-box;
   background: #383838;
   border: 1px solid #333333;
@@ -149,23 +149,49 @@ body {
   justify-content: left;
 }
 
-.chat-container
-  .conversation-container
-  .conversation-panel
-  #new-chat-button
-  img {
+.chat-container .conversation-panel #new-chat-button img {
   position: relative;
   left: 15px;
 }
 
-.chat-container
-  .conversation-container
-  .conversation-panel
-  #new-chat-button
-  span {
+.chat-container .conversation-panel #new-chat-button span {
   position: relative;
   left: 30px;
   font-size: 25px;
+}
+
+.chat-container .conversation-panel .search-bar .searchBar {
+  background: var(--searchbar-color);
+  border: 1px solid var(--searchbar-color);
+  box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  position: relative;
+  margin: 10px 10px 0 10px;
+  width: 270px;
+  height: 35px;
+}
+
+.chat-container .conversation-panel .search-bar .searchSubmit {
+  position: absolute;
+  left: 30px;
+  top: 80px;
+  width: 25px;
+  height: 25px;
+}
+
+.chat-container hr {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  width: 270px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-color);
+}
+
+.chat-container .conversation-panel .conversation-list {
+  position: relative;
+  top: 20px;
+  left: 10px;
 }
 
 /* ======== CHAT BOX ======== */
@@ -174,8 +200,51 @@ body {
   position: fixed;
   top: 100px;
   left: 350px;
-  height: calc(100vh - 175px);
-  width: calc(100vw - 350px);
+  height: 100vh;
+  width: calc(100vw - 500px);
   z-index: 1;
   overflow-y: scroll;
+  text-align: center;
+}
+
+.main-content .chat-title-bar {
+  position: relative;
+  top: 25px;
+}
+
+.main-content .chat-title-bar .chat-title h2 {
+  font-size: 31.25px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.main-content .chat-title-bar .chat-title p {
+  font-size: 16px;
+}
+
+.main-content .chat-content .chat-history {
+  top: 100px;
+  left: 100px;
+}
+
+.main-content .chat-content .user-input {
+  position: relative;
+  top: 75vh;
+  height: 100px;
+}
+
+.main-content .chat-content .user-input #message-input {
+  width: 600px;
+  height: 35px;
+  background: var(--searchbar-color);
+  border: 1px solid var(--searchbar-color);
+  box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+
+.main-content .chat-content .user-input #send-button {
+  position: absolute;
+  left: 970px;
+  bottom: 65px;
+  background: none;
 }

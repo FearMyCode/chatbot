@@ -31,32 +31,37 @@
 
     <!-- TODO: Try using NAV and MAIN and HEADER -->
     <div class="chat-container">
-      <div class="conversation-container">
-        <div class="conversation-panel">
-          <button id="new-chat-button">
-            <img
-              src="../static/assets/add.png"
-              alt="new chat"
-              width="30px"
-              height="30px"
+      <div class="conversation-panel">
+        <button id="new-chat-button">
+          <img
+            src="../static/assets/add.png"
+            alt="new chat"
+            width="30px"
+            height="30px"
+          />
+          <span> New Chat</span>
+        </button>
+        <div class="search-bar">
+          <form>
+            <input
+              class="searchBar"
+              type="text"
+              placeholder="      Search..."
             />
-            <span> New Chat</span>
-          </button>
-          <div class="search-bar">
-            <form>
-              <h3 class="header-text">Chat Search Bar</h3>
-              <input
-                class="searchBar"
-                type="text"
-                placeholder="Search for content..."
-              />
-              <input class="searchSubmit" type="submit" />
-            </form>
-          </div>
-          <div class="conversation-list">
-            <h3>Conversations</h3>
-            <ul id="conversation-list" class="list-group"></ul>
-          </div>
+            <input
+              class="searchSubmit"
+              type="image"
+              src="../static/assets/search.png"
+              alt="search"
+              width="20px"
+              height="20px"
+            />
+          </form>
+        </div>
+        <hr />
+        <div class="conversation-list">
+          <h3>Conversations</h3>
+          <ul id="conversation-list" class="list-group"></ul>
         </div>
       </div>
       <div class="main-content">
@@ -72,9 +77,16 @@
             <input
               type="text"
               id="message-input"
-              placeholder="Type your message here..."
+              placeholder=" Type your message here..."
             />
-            <button id="send-button">Send</button>
+            <button id="send-button">
+              <img
+                src="../static/assets/send.png"
+                width="25px"
+                height="25px"
+                alt="send message"
+              />
+            </button>
           </div>
         </div>
       </div>
