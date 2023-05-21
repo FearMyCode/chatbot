@@ -98,6 +98,7 @@ To thoroughly test the functionality of the system, we have created unit tests u
 To execute the tests, you can use the following command in the terminal:
 
 python -W ignore -m unittest testing.unit_test
+
 Please note that in order to fully utilize the unit tests, you may need to retrieve data from the database, such as obtaining valid tokens, and manually adjust the sequence of the available test cases. This ensures comprehensive coverage of 
 different aspects of the system's functionality during testing.
 
@@ -105,7 +106,7 @@ different aspects of the system's functionality during testing.
 1. Run the mysql server locally.
 2. Set the local mysql configuration on app.py, input the Username and Password for access to the database.
 3. Create a 'chatbot' database on mysql server.
-4. Migrate the data model with "flask db migrate" and "flask db upgrade" commands on terminal.
+4. Migrate the data model with "flask db init", "flask db migrate" and "flask db upgrade" commands on terminal.
 5. Input API key and organization code from openAI on flask_main.py, to reach chat functionality.
 6. Launch the flask back end.
 7. Open the browser and access the system through "http://127.0.0.1:5000".
