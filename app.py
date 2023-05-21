@@ -1,61 +1,63 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+from werkzeug.security import  check_password_hash
+from flask_migrate import Migrate
+import pymysql, os
 
 app = Flask(__name__)
 
-# Chat data
-conversations = [
-    {
-        'id': 1,
-        'title': 'Conversation 1',
-        'messages': [
-            'Message 1',
-            'Message 2',
-            'Message 3'
-        ]
-    },
-    {
-        'id': 2,
-        'title': 'Conversation 2',
-        'messages': [
-            'Message 4',
-            'Message 5'
-        ]
-    }
-]
+# database configuration
+HOSTNAME = 'localhost'
+PORT = '3306'
+DATABASE = 'chatbot'
+USERNAME = 'root'
+PASSWORD = ''
 
-# Chat API endpoints
+app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8mb4'.format(USERNAME, PASSWORD, HOSTNAME, PORT, DATABASE)
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+app.config["SECRET_KEY"] = os.urandom(24)
+db = SQLAlchemy(app)
+
+migrate=Migrate(app,db)
+
+# User
+class User(db.Model):
+    __tablename__ = "user"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(100), unique=True)
+    pwd = db.Column(db.String(100))
+    addtime = db.Column(db.DateTime, index=True, default=datetime.now)
+
+# Conversation
+class Conversation(db.Model):
+    __tablename__ = "conversation"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(100))
+    startTime = db.Column(db.DateTime, index=True, default=datetime.now)
+    # foreign key to User
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    User = db.relationship("User")
+
+# Statement
+class Statement(db.Model):
+    __tablename__ = "statement"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    content = db.Column(db.String(1024))
+    timeStamp = db.Column(db.DateTime, index=True, default=datetime.now)
+    title = db.Column(db.String(4))  #User or Bot
+    # foreign key to Conversation
+    conversation_id = db.Column(db.Integer, db.ForeignKey("conversation.id"))
+    Conversation = db.relationship("Conversation")
+
+# Token
+class Token(db.Model):
+    __tablename__ = "token"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    content = db.Column(db.String(128))
+    timeStamp = db.Column(db.DateTime, index=True, default=datetime.now)
+    # foreign key to User
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    User = db.relationship("User")
 
 
-@app.route('/')
-def index():
-    return render_template('chatbot.html')
-
-
-@app.route('/chat/conversations', methods=['GET'])
-def get_conversation_titles():
-    titles = [{'id': conversation['id'], 'title': conversation['title']}
-              for conversation in conversations]
-    return jsonify({'success': True, 'conversations': titles})
-
-
-@app.route('/chat/<int:conversation_id>', methods=['GET'])
-def get_conversation_by_id(conversation_id):
-    for conversation in conversations:
-        if conversation['id'] == conversation_id:
-            return jsonify({'success': True, 'messages': conversation['messages']})
-    return jsonify({'success': False, 'message': 'Conversation not found'})
-
-
-@app.route('/chat/update', methods=['POST'])
-def update_conversation():
-    message = request.form.get('message')
-    conversation_id = int(request.form.get('conversation_id'))
-    for conversation in conversations:
-        if conversation['id'] == conversation_id:
-            conversation['messages'].append(message)
-            return jsonify({'success': True})
-    return jsonify({'success': False, 'message': 'Conversation not found'})
-
-
-if __name__ == '__main__':
-    app.run(debug=True)

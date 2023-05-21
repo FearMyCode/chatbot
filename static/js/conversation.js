@@ -4,31 +4,102 @@ $(document).ready(function () {
   function registerClickEventListeners() {
     $(".list-group-item").on("click", function () {
       const conversationId = $(this).data("conversation-id");
-      updateURL(conversationId);
+      //Change chat Title and time
+      $(".chat-title h2").text($(this).text())
+      $(".chat-title p").text("Created on "+$(this).data("start_time"))
+
+      sessionStorage.setItem('con_id',conversationId)
       fetchConversation(conversationId);
     });
   }
 
-  // Function to update the URL with the conversation ID
-  function updateURL(conversationId) {
-    const newURL = "/chat/" + conversationId;
-    window.history.pushState(null, "", newURL);
+   // Click event listener for the "New Chat" button
+  $("#new-chat-button").on("click", function () {
+  //  clear chat history
+      const chatHistory = $("#chat-history");
+      chatHistory.empty();
+  //    create new conversation
+      const newConversationTitle = "New Conversation";
+        $.ajax({
+        url: "/newConversation"+`/${sessionStorage.getItem('token')}`,
+        data: {
+            "user_id":sessionStorage.getItem('user_id'),
+            "title": newConversationTitle
+        },
+        type: "Post",
+        dataType: "text",
+        success: function (res) {
+            let data= JSON.parse(JSON.parse(res).data)
+            console.log("data",data)
+            const newConversationId=data.id
+            sessionStorage.setItem('con_id',newConversationId)
+            //set Title and Time
+            $(".chat-title h2").text(newConversationTitle)
+            $(".chat-title p").text("Created on "+data.startTime)
+            refreshConversations()
+        },
+    })
+  });
+
+  function refreshConversations(keyword){
+    // Fetch conversation titles and populate the left panel
+  $.ajax({
+    url: "/refreshConversations"+`/${sessionStorage.getItem('token')}`,
+    data: {
+            "user_id":sessionStorage.getItem('user_id'),
+            "keyword":keyword
+        },
+    method: "GET",
+    success: function (res) {
+        const conversationList = $("#conversation-list");
+        conversationList.empty()
+        let Cons=JSON.parse(res.data)
+        console.log("Conversation_refresh",Cons)
+        Cons.forEach(function (conversation) {
+          const listItem = $("<li>")
+            .addClass("list-group-item")
+            .text(conversation.title)
+            .attr("data-conversation-id", conversation.id)
+            .attr("data-start_time", conversation.startTime);
+          conversationList.append(listItem);
+        });
+
+        // Call the function to register click event listeners
+        registerClickEventListeners();
+
+    },
+    error: function (error) {
+      console.log("Error fetching conversation titles:", error);
+    },
+  });
   }
+  document.querySelector(".searchSubmit").addEventListener("click",e=>{
+      e.preventDefault()
+      let keyword=document.querySelector(".searchBar").value
+      refreshConversations(keyword)
+  //    clear Chat history
+      const chatHistory = $("#chat-history");
+      chatHistory.empty();
+  })
+  refreshConversations()
 
   // Function to fetch and display the conversation based on the ID
   function fetchConversation(conversationId) {
     $.ajax({
-      url: "/chat/" + conversationId,
+      url: "/fetchConversation"+`/${sessionStorage.getItem('token')}`,
+      data: {
+            "con_id":conversationId
+        },
       method: "GET",
-      success: function (response) {
-        if (response.success) {
+      success: function (res) {
           const chatHistory = $("#chat-history");
           chatHistory.empty();
-          response.messages.forEach(function (message) {
-            const chatMessage = $("<div>").text(message);
+          let msgs = JSON.parse(res.data)
+          console.log("ChatHistoryRefresh",msgs)
+          msgs.forEach(function (msg) {
+            const chatMessage = `<div class=${msg.title=="User"?"usrMsg":"botMsg"}><span>` + msg.content +'</span></div>' ;
             chatHistory.prepend(chatMessage);
           });
-        }
       },
       error: function (error) {
         console.log("Error fetching conversation:", error);
@@ -36,78 +107,83 @@ $(document).ready(function () {
     });
   }
 
-  // Fetch conversation titles and populate the left panel
-  $.ajax({
-    url: "/chat/conversations",
-    method: "GET",
-    success: function (response) {
-      if (response.success) {
-        const conversationList = $("#conversation-list");
-        response.conversations.forEach(function (conversation) {
-          const listItem = $("<li>")
-            .addClass("list-group-item")
-            .text(conversation.title)
-            .attr("data-conversation-id", conversation.id);
-          conversationList.append(listItem);
-        });
 
-        // Call the function to register click event listeners
-        registerClickEventListeners();
-      }
-    },
-    error: function (error) {
-      console.log("Error fetching conversation titles:", error);
-    },
-  });
 
   // Function to handle the send button click event
   function sendButtonClick() {
     const inputField = $("#message-input");
     const message = inputField.val().trim();
-    if (message !== "") {
+    if (message == "") {
+         alert("Message Cannot Be Empty!");
+         return;
+    }
+    else{
       const chatHistory = $("#chat-history");
-      const chatMessage = $("<div>").text(message);
+      const chatMessage = '<div class="usrMsg"><span>' + message +'</span></div>' ;
       chatHistory.prepend(chatMessage);
-      inputField.val("");
-
-      // Update the conversation on the server
-      let conversationId = getCurrentConversationId();
-
-      if (window.location.pathname === "/") {
-        // Create a new conversation
-        const conversationList = $("#conversation-list");
-        const newConversationId = conversationList.children().length + 1;
-        const newConversationTitle = "Conversation " + newConversationId;
-        const listItem = $("<li>")
-          .addClass("list-group-item")
-          .text(newConversationTitle)
-          .attr("data-conversation-id", newConversationId);
-        conversationList.append(listItem);
-
-        // Update the URL for the new conversation
-        updateURL(newConversationId);
-
-        // Update the conversation ID
-        conversationId = newConversationId;
-
-        // Create a new conversation object
-        const newConversation = {
-          id: newConversationId,
-          title: newConversationTitle,
-          messages: [message],
-        };
-        conversations.push(newConversation);
-
-        // Call the function to register click event listeners
-        registerClickEventListeners();
-      }
 
       // Clear input field and focus
       inputField.val("");
       inputField.focus();
+      let conversationId = sessionStorage.getItem('con_id')
+      // No Conversation Case
+      if (!conversationId) {
+        // Create a new conversation
+        const newConversationTitle = "New Conversation";
+        $.ajax({
+        url: "/newConversation"+`/${sessionStorage.getItem('token')}`,
+        data: {
+            "user_id":sessionStorage.getItem('user_id'),
+            "title": newConversationTitle
+        },
+        type: "Post",
+        dataType: "text",
+        success: function (res) {
+            let data= JSON.parse(JSON.parse(res).data)
+            let newConversationId=data.id
+            console.log("new_conversation",newConversationId)
+            sessionStorage.setItem('con_id',newConversationId)
+            //set Title and Time
+            $(".chat-title h2").text(newConversationTitle)
+            $(".chat-title p").text("Created on "+data.startTime)
 
-      // Update the conversation on the server
-      updateConversation(message, conversationId);
+            refreshConversations()
+            $.ajax({
+              url: "/returnMessage"+`/${sessionStorage.getItem('token')}`,
+              data: {
+                  "con_id":newConversationId,
+                  "send_message": message
+                },
+              type: "Post",
+              dataType: "text",
+              success: function (data) {
+                  const botReply = '<div class="botMsg"><span>' + data +'</span></div>' ;
+                  chatHistory.prepend(botReply);
+              },
+    })
+        },
+    })
+
+
+
+      }else{
+        // Update the conversation on the server
+          console.log("Conversation existed")
+        $.ajax({
+        url: "/returnMessage"+`/${sessionStorage.getItem('token')}`,
+        data: {
+            "con_id":conversationId,
+            "send_message": message
+        },
+        type: "Post",
+        dataType: "text",
+        success: function (data) {
+            const botReply = '<div class="botMsg"><span>' + data +'</span></div>' ;
+            chatHistory.prepend(botReply);
+        },
+    })
+      }
+
     }
   }
 
@@ -120,31 +196,6 @@ $(document).ready(function () {
     }
   });
 
-  // Click event listener for the "New Chat" button
-  $("#new-chat-button").on("click", function () {
-    // Redirect to the default page
-    window.location.href = "/";
-  });
 
-  // Function to get the current conversation ID from the URL
-  function getCurrentConversationId() {
-    const currentURL = window.location.href;
-    const conversationId = currentURL.split("/").pop();
-    return conversationId;
-  }
 
-  // Function to update the conversation on the server
-  function updateConversation(message, conversationId) {
-    $.ajax({
-      url: "/chat/update",
-      method: "POST",
-      data: { message: message, conversation_id: conversationId },
-      success: function (response) {
-        console.log("Conversation updated successfully.");
-      },
-      error: function (error) {
-        console.log("Error updating conversation:", error);
-      },
-    });
-  }
 });
