@@ -105,7 +105,7 @@ $(document).ready(function () {
             .text(conversation.title)
             .attr("data-conversation-id", conversation.id)
             .attr("data-start_time", conversation.startTime);
-          conversationList.append(listItem);
+          conversationList.prepend(listItem);
         });
 
         // Call the function to register click event listeners
