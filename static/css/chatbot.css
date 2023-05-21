@@ -310,6 +310,9 @@ body {
   margin: 0 200px 0 200px;
   height: calc(100vh - 300px);
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
+  padding-bottom: 20px;
 }
 
 #chat-title-input {
