@@ -1,50 +1,60 @@
 ﻿<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link rel="stylesheet" href="../static/css/bootstrap.css" />
-		<link rel="stylesheet" href="../static/css/login.css" />
-		<script type="text/javascript" src="../static/js/jquery-1.11.3.js" ></script>
-		<script type="text/javascript" src="../static/js/bootstrap.js" ></script>
-		<title></title>
-	</head>
-	<body>
-		<div id="main">
-			<div class="main">	
-			<div class="container">
-				<div class="logo">
-					<span>
-						<img src="../static/img/robot.png" />
-					</span>
-					<p>ChatBot_3403</p>
-				</div>
-				<div class="login-form">
-					<form>
-						<div class="form-group">
-    						<label for="usernameoremail">User Name or Email</label>
-    						<input type="text" class="form-control" id="usernameoremail">
-  						</div>
-  						<div class="form-group">
-    						<label for="password">Password</label>
-    						<input type="password" class="form-control" id="password">
-  						</div>
-  						<div class="checkbox">
-    						<label>
-     		 					<input type="checkbox" id="rememberMe"> Remember me
-    						</label>
-  						</div>
-  						<div class="login-form-1">
-							<input type="button" value="Log in" id="denglu"  class="btn btn-default btn1"></input>
-							<a href="{{ url_for('toRegister') }}" type="button" class="btn btn-default btn2">Register</a>
-						</div>
-
-					</form>
-				</div>
-			</div>
-		</div>
-
-		</div>
-    <script type="text/javascript" src="../static/js/login.js" ></script>
-	</body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1"
+    />
+    <link rel="stylesheet" href="../static/css/bootstrap.css" />
+    <link rel="stylesheet" href="../static/css/login.css" />
+    <script src="../static/js/jquery-1.11.3.js"></script>
+    <script src="../static/js/bootstrap.js"></script>
+    <title>Login Page</title>
+  </head>
+  <body>
+    <div id="main">
+      <div class="main">
+        <div class="container">
+          <div class="logo">
+            <span>
+              <img src="../static/img/robot.png" alt="Robot Image" />
+            </span>
+            <p>ChatBot_3403</p>
+          </div>
+          <div class="login-form">
+            <form>
+              <div class="form-group">
+                <label for="usernameoremail">User Name or Email</label>
+                <input type="text" class="form-control" id="usernameoremail" />
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" />
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="rememberMe" /> Remember me
+                </label>
+              </div>
+              <div class="login-form-1">
+                <input
+                  type="button"
+                  value="Log in"
+                  id="denglu"
+                  class="btn btn-default btn1"
+                />
+                <a
+                  href="{{ url_for('toRegister') }}"
+                  class="btn btn-default btn2"
+                  >Register</a
+                >
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../static/js/login.js"></script>
+  </body>
 </html>
