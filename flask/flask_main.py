@@ -9,8 +9,8 @@ import hashlib
 import json
 from app import *
 from sqlalchemy import or_, and_, not_
-OPENAI_API_KEY = ""
-openai.organization = ""
+OPENAI_API_KEY = "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"
+openai.organization = "org-cf6TK4aeo1LotntOuVgjbHaR"
 openai.api_key = OPENAI_API_KEY
 
 md5 = hashlib.md5()  # Create md5 encryption object
