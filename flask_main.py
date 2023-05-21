@@ -14,8 +14,6 @@ OPENAI_API_KEY = ""
 openai.organization = ""
 openai.api_key = OPENAI_API_KEY
 
-md5 = hashlib.md5()  # Create md5 encryption object
-
 # navigate to login page
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/toLogin', methods=['GET', 'POST'])
@@ -133,14 +131,14 @@ def fetchConversation(token):
 # Automatically generate a new conversation when logging in
 @app.route('/login', methods=['GET', 'POST'])
 def logIn():
-    print('MD5 Password:', md5)  # Print the MD5 password
+    md5 = hashlib.md5()  # Create md5 encryption object
     md5.update(request.values.get("password").encode('utf-8'))  # String to be encrypted
     pwd_md5 = md5.hexdigest()  # Encrypted String
-    # print(pwd_md5)
     user = User.query.filter_by(name=request.values.get("account"), pwd=pwd_md5).first()
     if user:
         # create token
         original_token = (user.name + str(datetime.now().timestamp())).encode('utf-8')
+        md5 = hashlib.md5()  # Create new md5 encryption object
         md5.update(original_token)  # String to be encrypted
         token = md5.hexdigest()  # Encrypted String
         new_token = Token(content=token, user_id=user.id)
@@ -178,6 +176,7 @@ def autoLogIn():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    md5 = hashlib.md5()  # Create md5 encryption object
     md5.update(request.values.get("password").encode('utf-8'))  # String to be encrypted
     pwd_md5 = md5.hexdigest()  # Encrypted String
     new_user = User(name=request.values.get("account"), pwd=pwd_md5)
