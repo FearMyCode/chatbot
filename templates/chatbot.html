@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chatbot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/chatbot.css') }}"
+    />
+  </head>
+  <body>
+    <div class="website-header-container">
+      <img
+        src="../static/assets/robot.png"
+        alt="robot"
+        width="70px"
+        height="70px"
+      />
+      <h1>Chatbot_3403</h1>
+      <div class="dropdown">
+        <a href="#" class="settings-button">
+          <img
+            src="../static/assets/setting.png"
+            alt="settings"
+            width="35px"
+            height="35px"
+          />
+        </a>
+        <div class="dropdown-content">
+          <a href="#" id="logout-button">Logout</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- TODO: Try using NAV and MAIN and HEADER -->
+    <div class="chat-container">
+      <div class="conversation-panel">
+        <button id="new-chat-button">
+          <img
+            src="../static/assets/add.png"
+            alt="new chat"
+            width="30px"
+            height="30px"
+          />
+          <span> New Chat</span>
+        </button>
+        <div class="search-bar">
+          <form>
+            <input class="searchBar" type="text" placeholder="Search..." />
+            <input
+              class="searchSubmit"
+              type="image"
+              src="../static/assets/search.png"
+              alt="search"
+              width="20px"
+              height="20px"
+            />
+          </form>
+        </div>
+        <hr />
+        <div class="conversation-list">
+          <ul id="conversation-list" class="list-group"></ul>
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="chat-title-bar">
+          <div class="chat-title">
+            <div class="title">
+              <h2 id="chat-title-display">Chat Title</h2>
+              <input type="text" id="chat-title-input" style="display: none" />
+              <button id="edit-title-button">
+                <img
+                  src="../static/assets/edit.png"
+                  alt="edit chat"
+                  width="25px"
+                  height="25px"
+                />
+              </button>
+            </div>
+            <p>Created on May 2, 2023</p>
+          </div>
+        </div>
+        <div class="chat-content">
+          <div id="chat-history" class="chat-history"></div>
+          <div class="user-input">
+            <input
+              type="text"
+              id="message-input"
+              placeholder="Type your message here..."
+            />
+            <button id="send-button">
+              <img
+                src="../static/assets/send.png"
+                width="25px"
+                height="25px"
+                alt="send message"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/conversation.js') }}"></script>
+  </body>
+</html>

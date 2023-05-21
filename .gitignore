@@ -1,0 +1,6 @@
+/.idea
+/.vscode
+/venv/
+/migrations/
+/__pycache__
+
