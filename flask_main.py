@@ -202,6 +202,21 @@ def token_validate(token_md5):
         token.timeStamp = TS_Now
         db.session.commit()
         return True
+    
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    token = request.values.get("token")
+    if token:
+        TOKEN = Token.query.filter_by(content=token).first()
+        if TOKEN:
+            db.session.delete(TOKEN)
+            db.session.commit()
+            return {"status": 200, "message": "Logged out successfully"}
+        else:
+            return {"status": 404, "message": "Token not found"}
+    else:
+        return {"status": 400, "message": "No token provided"}
 
 
 if __name__ == '__main__':

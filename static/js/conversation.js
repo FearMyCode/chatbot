@@ -237,4 +237,28 @@ $(document).ready(function () {
       sendButtonClick();
     }
   });
+
+  $(".settings-button").on("click", function () {
+    var dropdownContent = $(this).next();
+    if (dropdownContent.css("display") === "block") {
+      dropdownContent.css("display", "none");
+    } else {
+      dropdownContent.css("display", "block");
+    }
+  });
+
+  $("#logout-button").on("click", function () {
+    var token = sessionStorage.getItem("token"); // Get the token from session storage
+
+    // Send a POST request to the /logout endpoint
+    $.post("/logout", { token: token }, function (data, status) {
+      if (status === "success") {
+        sessionStorage.clear(); // clear all session storage
+        window.location.href = "/toLogin"; // redirect to login page
+      } else {
+        // Handle failure to logout here
+        alert("Failed to logout");
+      }
+    });
+  });
 });

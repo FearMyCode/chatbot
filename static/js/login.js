@@ -54,7 +54,7 @@ log_btn.addEventListener('click',e=>{
                 }
                 window.location.href=data.url
             }else if(res.status==404)
-                alert("账号密码错误")
+                alert("The username or password is incorrect")
 
         },
     })
