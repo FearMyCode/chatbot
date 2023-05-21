@@ -12,7 +12,7 @@ We didn't want to add a gimmick that would reduce the chatbot's functionality so
 
 # Design, HTML & CSS #
 For our design, we used agile processes to ensure efficiency.
-We started with a basic template/deliverable for our website, allowing our backend developers to work on functionality whilst we prepared the css.
+We started with a basic template/deliverable for our website, allowing our backend developers to work on functionality whilst we prepared the finished CSS and HTML.
 Next, we used Figma to develop an appealing UI/UX.
 After the design was complete on figma, we began importing the CSS into the flask project.
 From this point it was just a matter of styling additional functionalities and updates.
