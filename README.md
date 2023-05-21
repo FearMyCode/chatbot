@@ -5,6 +5,10 @@ Set up mysql database--fill the password field, and create corresponding table
 Fill the APIKEY and organization for GPT function
 Run the flask project
 
+# Purpose #
+The purpose of the website was to provide a chatbot with good functionality and A smooth user experience.
+We thought that ChatGPT had a lack of design and became too complicated so we decided to redesign it in a more simple and clean way.
+
 # Design, HTML & CSS #
 For our design, we used agile processes to ensure efficiency.
 We started with a basic template/deliverable for our website, allowing our backend developers to work on functionality whilst we prepared the css.
