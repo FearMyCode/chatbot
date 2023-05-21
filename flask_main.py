@@ -10,8 +10,8 @@ import json
 from app import *
 from sqlalchemy import or_, and_, not_
 
-OPENAI_API_KEY = "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"
-openai.organization = "org-cf6TK4aeo1LotntOuVgjbHaR"
+OPENAI_API_KEY = ""
+openai.organization = ""
 openai.api_key = OPENAI_API_KEY
 
 # navigate to login page
@@ -36,10 +36,10 @@ def toChatBot(token):
 def returnMessage(token):
     if token_validate(token):
         send_message = request.values.get("send_message")
-        print("对方发送的消息：" + send_message)
+        print("user message：" + send_message)
         query = Statement(content=send_message, title="User", conversation_id=request.values.get("con_id"))
         db.session.add(query)
-        # openAI 版本
+        # openAI version
         completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",
                                                   messages=[{"role": "user", "content": send_message}])
         message = completion.choices[0].message.content

@@ -7,7 +7,7 @@ reg_btn.addEventListener('click',e=>{
         password=pwd_input.value,
         pwd_verify=pwd_v_input.value
     if(password!=pwd_verify){
-        alert("两次密码不一致")
+        alert("Password incoherent")
         return
     }
     $.ajax({
