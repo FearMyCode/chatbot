@@ -7,7 +7,7 @@ Run the flask project
 
 # Purpose #
 The purpose of the website was to provide a chatbot with good functionality and A smooth UI and UX.
-We thought that *other chatbots* had a lack of design and became too complicated so we decided to redesign it in a more simple and efficient way.
+We thought that __*other chatbots*__ had a lack of design and became too complicated so we decided to redesign it in a more simple and efficient way.
 We didn't want to add a gimmick that would reduce the chatbot's functionality so we left it as is, with full interactability.
 
 # Design, HTML & CSS #
