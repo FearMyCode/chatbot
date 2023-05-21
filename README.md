@@ -19,8 +19,8 @@ From this point it was just a matter of styling additional functionalities and u
 
 ### Tools ###
 For icons, we took them from Flaticon.com. For many we had to invert the coloring on Aseprite and others we had to edit the opacity.
-For fonts, we used Roboto Mono from google fonts. I believe it fits the theme of a chatbot however it doesn't look so modern.
-For font-size, we used Typescale.com to create pleasing font sizes.
+For fonts, we used Roboto Mono from Google Fonts. I believe it fits the theme of a chatbot however I also think it could be improved.
+For font-size, we used Typescale.com to create visually pleasing font sizes.
 
 ### Tools Used ###
 - Figma
