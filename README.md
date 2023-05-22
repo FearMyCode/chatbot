@@ -33,8 +33,6 @@ For font-size, we used Typescale.com to create visually pleasing font sizes.
 - Flaticon.com
 - Google Fonts
 
----
-
 # Frontend functionality
 
 ## Development of the chat functionality
