@@ -37,7 +37,6 @@ body {
   .main {
     position: absolute;
     top: 0;
-    transform: top 0.3s;
     left: 10%;
     right: 10%;
   }
