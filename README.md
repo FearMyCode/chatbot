@@ -5,6 +5,11 @@ Set up mysql database--fill the password field, and create corresponding table
 Fill the APIKEY and organization for GPT function
 Run the flask project
 
+# Authors/Contributors
+- 23268041-Michael Yip
+- 22506057-Connor Wallis
+- 23458569-Shumeng Luo
+
 # Purpose
 
 The purpose of the website was to provide a chatbot with good functionality and A smooth UI and UX.
