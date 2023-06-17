@@ -15,17 +15,23 @@ openai.organization = ""
 openai.api_key = OPENAI_API_KEY
 
 # navigate to login page
+
+
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/toLogin', methods=['GET', 'POST'])
 def toLogin():
     return render_template('login.html')
 
 # navigate to register page
+
+
 @app.route('/toRegister', methods=['GET', 'POST'])
 def toRegister():
     return render_template('register.html')
 
 # navigate to main page
+
+
 @app.route('/toChatBot/<token>', methods=['GET', 'POST'])
 def toChatBot(token):
     if token_validate(token):
@@ -37,14 +43,16 @@ def returnMessage(token):
     if token_validate(token):
         send_message = request.values.get("send_message")
         print("user message：" + send_message)
-        query = Statement(content=send_message, title="User", conversation_id=request.values.get("con_id"))
+        query = Statement(content=send_message, title="User",
+                          conversation_id=request.values.get("con_id"))
         db.session.add(query)
         # openAI version
         completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",
                                                   messages=[{"role": "user", "content": send_message}])
         message = completion.choices[0].message.content
         print("Chatgpt: ", message)
-        reply = Statement(content=message, title="Bot", conversation_id=request.values.get("con_id"))
+        reply = Statement(content=message, title="Bot",
+                          conversation_id=request.values.get("con_id"))
         db.session.add(reply)
         db.session.commit()
         return message
@@ -56,7 +64,8 @@ def returnMessage(token):
 # auxiliary function, to start a new conversation
 def newConversation(token):
     if token_validate(token):
-        new_conversation = Conversation(title=request.values.get("title"), user_id=request.values.get("user_id"))
+        new_conversation = Conversation(title=request.values.get(
+            "title"), user_id=request.values.get("user_id"))
         db.session.add(new_conversation)
         db.session.flush()
         db.session.commit()
@@ -132,12 +141,15 @@ def fetchConversation(token):
 @app.route('/login', methods=['GET', 'POST'])
 def logIn():
     md5 = hashlib.md5()  # Create md5 encryption object
-    md5.update(request.values.get("password").encode('utf-8'))  # String to be encrypted
+    md5.update(request.values.get("password").encode(
+        'utf-8'))  # String to be encrypted
     pwd_md5 = md5.hexdigest()  # Encrypted String
-    user = User.query.filter_by(name=request.values.get("account"), pwd=pwd_md5).first()
+    user = User.query.filter_by(
+        name=request.values.get("account"), pwd=pwd_md5).first()
     if user:
         # create token
-        original_token = (user.name + str(datetime.now().timestamp())).encode('utf-8')
+        original_token = (
+            user.name + str(datetime.now().timestamp())).encode('utf-8')
         md5 = hashlib.md5()  # Create new md5 encryption object
         md5.update(original_token)  # String to be encrypted
         token = md5.hexdigest()  # Encrypted String
@@ -177,7 +189,8 @@ def autoLogIn():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     md5 = hashlib.md5()  # Create md5 encryption object
-    md5.update(request.values.get("password").encode('utf-8'))  # String to be encrypted
+    md5.update(request.values.get("password").encode(
+        'utf-8'))  # String to be encrypted
     pwd_md5 = md5.hexdigest()  # Encrypted String
     new_user = User(name=request.values.get("account"), pwd=pwd_md5)
     db.session.add(new_user)
@@ -185,6 +198,8 @@ def register():
     return url_for("toLogin")
 
 # auxiliary function, to validate token
+
+
 def token_validate(token_md5):
     token = Token.query.filter_by(content=token_md5).first()
     if not token:
@@ -201,7 +216,7 @@ def token_validate(token_md5):
         token.timeStamp = TS_Now
         db.session.commit()
         return True
-    
+
 
 @app.route('/logout', methods=['POST'])
 def logout():

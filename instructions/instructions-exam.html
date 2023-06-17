@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chatbot</title>
+    <style>
+      /* Hiding all sections that do not have the 'active' class */
+      section:not(.active) {
+        display: none;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+      }
+
+      .web-page-header h1 {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 2.5em;
+        line-height: 1.2em;
+        font-weight: 400;
+        text-align: center;
+        color: #fff;
+      }
+      .web-page-header h3 {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 1.5em;
+        line-height: 1.2em;
+        font-weight: 400;
+        text-align: center;
+        color: #fff;
+      }
+
+      nav {
+        background-color: #ddd;
+        padding: 15px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 20px;
+        display: inline-block;
+        border: 1px solid #000;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
+
+      nav ul li {
+        display: inline;
+        margin-right: 10px;
+      }
+
+      nav ul li a {
+        text-decoration: none;
+        color: #333;
+        border-right: 1px solid #000;
+        padding: 0 10px;
+      }
+
+      nav li:last-child a {
+        border-right: none;
+      }
+
+      section {
+        padding: 10px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      h3 {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        font-size: 1.5em;
+        margin-bottom: 0.5em;
+      }
+
+      p {
+        margin-bottom: 10px;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      aside {
+        border-left: 1px solid #ddd;
+        padding-left: 10px;
+        margin-left: 10px;
+      }
+
+      aside button {
+        display: block;
+        background-color: #555;
+        color: #fff;
+        padding: 5px;
+        border: none;
+        cursor: pointer;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+      /* Add some padding and margin to the divs containing each step for better readability */
+      div {
+        padding: 1em;
+        margin: 1em 0;
+      }
+
+      /* Add a border around each step and a shadow for a 3D effect */
+      div {
+        border: 1px solid #ccc;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Zebra-stripe the steps */
+      div:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      /* Style the text of each step */
+      p {
+        font-size: 1.2em;
+        line-height: 1.5em;
+      }
+
+      /* Style the images in each step */
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0.5em 0;
+      }
+
+      /* Style the aside elements */
+      aside {
+        background-color: #d9d9d9aa;
+        margin-top: 10px;
+        border-left: 4px solid #888;
+        padding-left: 1em;
+        margin: 1em 0;
+      }
+
+      /* Style the buttons in the asides */
+      button {
+        background-color: #888;
+        color: #fff;
+        border: none;
+        padding: 0.5em;
+        margin-bottom: 0.5em;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #666;
+      }
+
+      /* Style the notes in the asides */
+      aside p {
+        margin: 0.5em 0;
+        line-height: 1.2em;
+      }
+
+      #overview {
+        padding: 2em;
+        background-color: #f6f6f6;
+        border-radius: 8px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      #advice_for_groups {
+        padding: 2em;
+        background-color: #f6f6f6;
+        border-radius: 8px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      #advice_for_groups li {
+        line-height: 1.6em;
+        color: #666;
+      }
+      #suggested_features {
+        padding: 2em;
+        background-color: #f6f6f6;
+        border-radius: 8px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      #suggested_features h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 1em;
+      }
+
+      #suggested_features h3 {
+        color: #333;
+        margin-top: 2em;
+        margin-bottom: 0.5em;
+      }
+
+      #suggested_features table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2em;
+      }
+
+      #suggested_features th,
+      #suggested_features td {
+        border: 1px solid #ddd;
+        padding: 0.5em;
+        text-align: left;
+      }
+
+      #suggested_features tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      #suggested_features ul {
+        padding-left: 1em;
+      }
+
+      #suggested_features li {
+        line-height: 1.6em;
+        color: #666;
+      }
+    </style>
+    <script>
+      let steps = [
+        {
+          title: "Setting up a virtual environment",
+          text: "Open your terminal and navigate to your project directory. Once you're in the project directory, create a virtual environment using: <code>python -m venv venv</code>. Then Activate the virtual environment using: <code>venv\Scripts\Activate</code>",
+          image: "images/venv.png",
+          aside: {
+            label: "Virtual Environment",
+            note: "A virtual environment is a tool that creates isolated Python virtual environments for various projects in order to help keep the dependencies needed by those projects separate.",
+          },
+        },
+        {
+          title: "Installing dependencies",
+          text: "Once you activated your virtual environment, you can install the required dependencies using: <code>pip install -r requirements.txt</code>",
+          image: "images/requirements.png",
+          aside: {
+            label: "PIP and Requirements",
+            note: "PIP is a Python package manager.  The packages provided in the requirements.txt file can be installed using PIP. This file contains a list of every Python package required for your project. With pip freeze > requirements.txt, you can create a requirements.txt file.",
+          },
+        },
+        {
+          title: "Creating 'chatbot' database in MySQL",
+          text: "Create a 'chatbot' database on your MySQL server and import the data using the chatbot.sql file. Then run the server locally.",
+          image: "images/mysql.png",
+          aside: {
+            label: "MySQL Database",
+            note: "The relational database management system MySQL is built on the structured query language SQL. In this project, we store conversation history, and user information in a database named 'chatbot'.",
+          },
+        },
+        {
+          title: "Configure MySQL database in app.py",
+          text: "In the app.py file, set the local MySQL configuration by inputting the Username and Password that have access to the database.",
+          image: "images/configuration.png",
+          aside: {
+            label: "Object-Relational Mapping",
+            note: "<p>Like SQLAlchemy in our chatbot project, ORM enables us to use Python classes to interact with our database. Each row in a database table is mapped to a Python object to accomplish this.</p><p>For instance, our 'User', 'Conversation', 'Statement', and 'Token' classes in 'app.py' each correspond to a table in our MySQL database as specified in our 'chatbot.sql'. This connection is facilitated by SQLAlchemy, which automatically translates our class attributes and instances into SQL commands to be executed in the database.</p><p>Taking the 'User' class as an example, each attribute (id, name, pwd, addtime) maps to a column in the user table. A new row will subsequently be added to the user table for each new User instance that is created and committed to our Python code. On the other hand, when a record is retrieved from the database, an object belonging to that class is made. Instead of writing raw SQL queries, we can write database queries using Pythonic syntax due to SQLAlchemy, which abstracts the SQL layer. This makes database operations simpler and makes our project easier to maintain.</p>",
+          },
+        },
+        {
+          title: "Performing Database Migration",
+          text: "Migrate the data model with <code>flask db init</code>, <code>flask db migrate</code>, <code>flask db upgrade</code> commands on terminal.",
+          image: "images/migration.png",
+          aside: {
+            label: "Database Migration",
+            note: "The db init, db migrate, and db upgrade commands are used to initialize, generate a migration script and apply the migration script respectively.",
+          },
+        },
+        {
+          title: "Setting OpenAI API keys",
+          text: "Update the OPENAI_API_KEY and openai.organization values in the flask_main.py file with your OpenAI API key and organization code.",
+          image: "images/api_key.png",
+          aside: {
+            label: "OpenAI API Keys",
+            note: "For chat functionality, we utilize the API provided by OpenAI, enabling users to interact with the GPT-3 model.",
+          },
+        },
+        {
+          title: "Running the Flask application",
+          text: "Launch the Flask backend using: <code>python3 flask_main.py</code>. Then Open the browser and access the system through http://127.0.0.1:5000.",
+          image: "images/route.png",
+          aside: {
+            label: "Routing",
+            note: "<p>In our project, Flask routes represent the idea of a stateless client-server architecture. For example, the /fetchConversation and /newConversation routes are very good to explain this concept.</p><p>The newConversation route is used to start a new conversation. A request is sent by a user along with a valid token and other conversational information. After the request has been processed, the start time and conversation ID are included in the server's response.  The main point here is showing that the server doesn't store any information related to the client state. It only receives requests, processes them, and sends the appropriate responses.</p><p>Similarly, the fetchConversation route is used to retrieve all statements that connect to a specific conversation. The token and the conversation ID must both be provided by the client within the request. The server only returns the statements associated with the provided conversation ID and does not retain any client state from previous requests.</p><p>The server doesn't keep any session-related data in either scenario. Higher scalability is made possible by this statelessness because the server can accommodate more clients without worrying about the state of each one. Additionally, because each request can be handled separately, robustness is increased.</p>",
+          },
+        },
+      ];
+    </script>
+  </head>
+  <body>
+    <header class="web-page-header">
+      <h1>CITS3403 - Agile Web Development Group Project - Chatbot</h1>
+      <h3>Michael Yip - 23268041</h3>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#instructions">Build and Run Instructions</a></li>
+        <li><a href="#suggested_features">Suggested Features</a></li>
+        <li><a href="#advice_for_groups">Advice for Groups</a></li>
+      </ul>
+    </nav>
+
+    <section id="overview" class="active">
+      <h2>Overview</h2>
+      <p>
+        Our chatbot application "web_chatbot" aims to deliver functionality with
+        a smooth user interface (UI) and user experience (UX). We have designed
+        this application to be simple and efficient, avoiding unnecessary
+        complexities commonly found in other chatbots.
+      </p>
+      <p>
+        The application is intended for anyone who wants to have interactive and
+        engaging conversations with a chatbot. Users can initiate multiple
+        conversations, manage them individually, and search for previous
+        conversations using keywords.
+      </p>
+      <p>
+        The application works by employing a Flask backend divided into two
+        primary modules: user authentication and conversation management. User
+        authentication includes functionalities such as login, registration, and
+        auto-login, while the conversation module manages operations related to
+        initiating, updating, and searching for conversations.
+      </p>
+      <p>
+        By integrating the GPT-3 model from OpenAI, our chatbot can generate
+        dynamic and interactive responses, creating a natural, human-like
+        interaction experience. Additionally, in order to provide our users with
+        a secure platform, we have implemented encryption techniques and JWT
+        (JSON Web Tokens) for access control.
+      </p>
+      <p>
+        In conculsion, web_chatbot is an intuitive and efficient chatbot
+        application that offers a user-friendly and secure platform for
+        interactive conversations.
+      </p>
+      <img src="images/chatbot.PNG" alt="Application Screenshot" />
+    </section>
+
+    <section id="instructions">
+      <h2>Build and Run Instructions</h2>
+      <!-- The instructions from steps JSON Array will be inserted here by JS -->
+    </section>
+
+    <section id="suggested_features">
+      <!-- <h2>Suggested Features</h2> -->
+      <h2>Suggested Features</h2>
+
+      <!-- Features: Conversation Deletion -->
+      <h3>Feature: Conversation Deletion</h3>
+      <p>
+        Overview: Add a delete button next to each conversation title. This
+        allows users to remove entire conversations from their chat history.
+        This would help clear up and organize the user interface, especially if
+        there are many inactive or redundant chats.
+      </p>
+      <table>
+        <tr>
+          <th>User Story ID</th>
+          <th>User Story</th>
+          <th>Story Point</th>
+        </tr>
+        <tr>
+          <td>#1</td>
+          <td>
+            As a user, I want to have a delete button so that I can choose to
+            delete specific conversations.
+          </td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>#2</td>
+          <td>
+            As a user, I want the conversation list to update in real-time when
+            a conversation is deleted
+          </td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>#3</td>
+          <td>
+            As a user, I want a confirmation prompt after I click on the delete
+            button to prevent accidental deletions.
+          </td>
+          <td>1</td>
+        </tr>
+      </table>
+      <p>Test Cases:</p>
+      <ul>
+        <li>
+          Given a conversation is selected, When a user clicks the delete
+          button, Then a confirmation prompt should appear.
+        </li>
+        <li>
+          Given a user has selected to delete a conversation, When they confirm
+          their decision, Then the conversation should be permanently deleted,
+          with an appropriate success message displayed.
+        </li>
+        <li>
+          Given a user has accidentally clicked on the delete button, When they
+          reject the confirmation prompt, Then the conversation should not be
+          deleted and the user still able to view their conversation history.
+        </li>
+      </ul>
+
+      <!-- Features: Conversation Folders -->
+      <h3>Feature: Conversation Folders</h3>
+      <p>
+        Overview: Implement a feature where users can store and categorize their
+        conversations into different specific folders. This will help users
+        better organize their conversations based on specific criteria such as
+        topic, participants, date, etc.
+      </p>
+      <table>
+        <tr>
+          <th>User Story ID</th>
+          <th>User Story</th>
+          <th>Story Point</th>
+        </tr>
+        <tr>
+          <td>#1</td>
+          <td>
+            As a user, I want to create folders for my conversations so I can
+            categorize them.
+          </td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>#2</td>
+          <td>
+            As a user, I want to move my conversations to a specific folder by
+            dragging and dropping them.
+          </td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>#3</td>
+          <td>
+            As a user, I want to view the conversations inside each folder when
+            I click on it.
+          </td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>#4</td>
+          <td>
+            As a user, I want to remove conversations from a folder if I decide
+            to reorganize.
+          </td>
+          <td>1</td>
+        </tr>
+      </table>
+      <p>Test Cases:</p>
+      <ul>
+        <li>
+          Given an existing conversation and folder, When a user drags a
+          conversation and drop it into a folder, Then the conversation should
+          be moved to that folder in the chat interface and database.
+        </li>
+        <li>
+          Given a folder with a list of conversations inside, When the user
+          selects that folder, Then the conversations in that folder should be
+          displayed.
+        </li>
+        <li>
+          Given a folder is selected, when the user wants to drag a conversation
+          out from that folder, then the conversation should no longer appear in
+          that folder.
+        </li>
+      </ul>
+    </section>
+
+    <section id="advice_for_groups">
+      <h1>Advice for Groups</h1>
+      <h3>A set of software tools you would recommend using:</h3>
+      <p>
+        <li>
+          <a
+            href="https://support.microsoft.com/en-us/office/microsoft-teams-video-training-4f108e54-240b-4351-8084-b1089f0d21d7"
+            target="_blank"
+            >Microsoft Teams video training</a
+          >
+          Microsoft Teams is excellent for team collaboration and communication,
+          organizing discussions, meetings and file sharing. It's a flexible
+          tool for organizing discussions, meetings and sharing your screen
+          while demonstrating
+        </li>
+        <li>
+          <a
+            href="https://docs.github.com/en/get-started/quickstart/set-up-git"
+            target="_blank"
+            >GitHub Tutorial</a
+          >
+          GitHub is recommended for version control and code sharing.
+        </li>
+        <li>
+          <a href="https://code.visualstudio.com/" target="_blank">VS Code</a>
+          VS Code IDE is a widely used, feature-rich code editor.
+        </li>
+        <li>
+          <a href="https://dev.mysql.com/doc/workbench/en/" target="_blank"
+            >MySQL Workbench Tutorial</a
+          >
+          MySQL Workbench is excellent for database management.
+        </li>
+        <li>
+          <a
+            href="https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world"
+            target="_blank"
+            >Flask Mega Tutorial</a
+          >
+          Python and Flask are crucial for server-side logic and web server
+          setup.
+        </li>
+        <li>
+          <a href="https://www.figma.com/" target="_blank"
+            >Figma Official Website</a
+          >Figma is excellent for collaborative UI design.
+        </li>
+      </p>
+
+      <h3>Recommendations for managing communication:</h3>
+      <p>
+        Managing communication within a team of student developers can be
+        challenging, but setting clear expectations and open communication
+        channels can alleviate most issues. Regular meetings, at least twice a
+        week, are recommended to keep everyone aligned. Each meeting should have
+        clear goals, including demonstrations of individual progress, group
+        discussions for feedback and suggestions, and task allocation for the
+        upcoming period. Tools like Microsoft Teams can facilitate this process.
+      </p>
+      <h3>Best practice for prioritizing deadlines and deliverables:</h3>
+      <p>
+        The Agile methodology can be very helpful. Start by creating a to-do
+        list and estimating the effort for each task. Then, prioritize the tasks
+        based on their importance, potential risk, and dependencies. Always make
+        sure to account for potential setbacks and keep the plan flexible,
+        updating it regularly based on progress and any new tasks or
+        requirements that may come up. This iterative approach helps to manage
+        multiple deadlines effectively and allows for constant progress.
+      </p>
+    </section>
+
+    <script>
+      // This script will run after the page loads and insert the step objects into the instructions div
+      window.onload = function () {
+        // Functionality for navigating between sections
+        var navLinks = document.querySelectorAll("nav a");
+        for (var i = 0; i < navLinks.length; i++) {
+          navLinks[i].addEventListener("click", function (e) {
+            e.preventDefault();
+            // Remove the "active" class from the currently active section
+            var currentActiveSection = document.querySelector(".active");
+            if (currentActiveSection) {
+              currentActiveSection.classList.remove("active");
+            }
+
+            // Add the "active" class to the target section
+            var targetSectionId = this.getAttribute("href");
+            var targetSection = document.querySelector(targetSectionId);
+            if (targetSection) {
+              targetSection.classList.add("active");
+            }
+          });
+        }
+
+        // Insert the steps into the instructions div
+        let instructionsDiv = document.getElementById("instructions");
+        for (let i = 0; i < steps.length; i++) {
+          let step = steps[i];
+          let stepDiv = document.createElement("div");
+          let title = document.createElement("h3");
+          let text = document.createElement("p");
+
+          title.innerHTML = step.title || "Title not provided";
+          text.innerHTML = step.text || "Text not provided";
+          stepDiv.appendChild(title);
+          stepDiv.appendChild(text);
+
+          // Check if image is defined in this step
+          if (step.image) {
+            let image = document.createElement("img");
+            image.src = step.image;
+            stepDiv.appendChild(image);
+          }
+
+          // Check if aside is defined in this step
+          if (step.aside && step.aside.label && step.aside.note) {
+            let aside = document.createElement("aside");
+            let button = document.createElement("button");
+            let note = document.createElement("p");
+            note.style.display = "none"; // The note is initially hidden
+
+            button.innerHTML = step.aside.label;
+            note.innerHTML = step.aside.note;
+
+            button.onclick = function () {
+              // This function toggles the visibility of the note when the button is clicked
+              note.style.display =
+                note.style.display == "none" ? "block" : "none";
+            };
+
+            aside.appendChild(button);
+            aside.appendChild(note);
+            stepDiv.appendChild(aside);
+          }
+
+          instructionsDiv.appendChild(stepDiv);
+        }
+      };
+    </script>
+  </body>
+</html>

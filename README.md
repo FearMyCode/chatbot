@@ -6,6 +6,7 @@ Fill the APIKEY and organization for GPT function
 Run the flask project
 
 # Authors/Contributors
+
 - 23268041-Michael Yip
 - 22506057-Connor Wallis
 - 23458569-Shumeng Luo
@@ -15,6 +16,8 @@ Run the flask project
 The purpose of the website was to provide a chatbot with good functionality and A smooth UI and UX.
 We thought that **_other chatbots_** had a lack of design and became too complicated so we decided to redesign it in a more simple and efficient way.
 We didn't want to add a gimmick that would reduce the chatbot's functionality so we left it as is, with full interactability.
+
+![Chatbot Website Screenshot](instructions/images/chatbot.PNG)
 
 # Design, HTML & CSS
 
@@ -129,6 +132,8 @@ Please note that in order to fully utilize the unit tests, you may need to retri
 different aspects of the system's functionality during testing.
 
 # How to launch
+
+**To see a more detailed step-by-step instructions, please refer to the 'instructions' folder in this repository.**
 
 1. Run the mysql server locally.
 2. Set the local mysql configuration on app.py, input the Username and Password for access to the database.
